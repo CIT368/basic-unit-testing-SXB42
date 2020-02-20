@@ -1,0 +1,32 @@
+package ICE_TESTING_BASICS;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+class Telephone_Tests {
+
+	//simple test
+	@Test
+	void test() {
+		assertTrue(Telephone.isFormatted("(610)555-2020"));
+	}
+	
+	//running a parameterized test
+	//second one should fail
+	@ParameterizedTest
+	@ValueSource(strings = {"(610)555-2020", "(610)-555-2020"})
+	void test2(String number) {
+		assertEquals(true, Telephone.isFormatted(number));
+	}
+	
+	//tests to see if all of these are true
+	@Test
+	void test3() {
+		assertAll(() -> assertFalse(Telephone.isFormatted("(610)-555-2020")),
+				  () -> assertTrue(Telephone.isFormatted("(610)555-2020")));
+	}
+
+}
